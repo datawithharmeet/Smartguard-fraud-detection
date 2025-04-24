@@ -1,0 +1,30 @@
+features:
+  include:
+    - log_amount
+    - use_chip
+    - card_type
+    - card_brand
+    - log_income
+    - credit_score
+    - num_credit_cards
+    - debt_to_income
+    - amount_to_limit_ratio
+    - is_high_amount
+
+encoding:
+  use_chip: one_hot
+  card_type: one_hot
+  card_brand: target
+  mcc_desc: top_n
+  merchant_state: one_hot
+
+buckets:
+  num_credit_cards: [0, 1, 3, 5, 10]
+  credit_score: [300, 600, 700, 800, 850]
+  current_age: [18, 30, 45, 60, 80]
+
+flags:
+  generate_high_amount_flag: true
+  apply_log_transforms: true
+  add_debt_to_income: true
+  apply_feature_binning: true
