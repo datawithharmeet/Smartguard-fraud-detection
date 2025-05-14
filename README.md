@@ -4,20 +4,20 @@
 
 ---
 
-## 🚀 Project Highlights
+##  Project Highlights
 
-* ✅ End-to-end pipeline covering data ingestion, transformation, model training, tuning, validation, and deployment
-* 📊 Exploratory Data Analysis and statistical testing to validate data assumptions and shape transformation strategy
-* ⚙️ Feature engineering pipeline using YAML config, including log transforms, ratios, encodings, and business rules
-* 🧠 Trained multiple models (XGBoost, LightGBM, RandomForest) with recall-prioritized threshold tuning
-* 🎯 Final model achieved **82% recall** and **3.8% precision** at 0.8 threshold — balancing fraud catch rate with customer experience
-* 🔍 SHAP explainability integrated for both global summaries and local transaction-level force plots
-* 🌐 Real-time risk scoring API deployed using FastAPI and models stored on AWS S3
-* 🔄 **Kafka-based streaming (in progress)** for simulating real-time transaction ingestion and scoring
+*  End-to-end pipeline covering data ingestion, transformation, model training, tuning, validation, and deployment
+*  Exploratory Data Analysis and statistical testing to validate data assumptions and shape transformation strategy
+*  Feature engineering pipeline using YAML config, including log transforms, ratios, encodings, and business rules
+*  Trained multiple models (XGBoost, LightGBM, RandomForest) with recall-prioritized threshold tuning
+*  Final model achieved **82% recall** and **3.8% precision** at 0.8 threshold — balancing fraud catch rate with customer experience
+*  SHAP explainability integrated for both global summaries and local transaction-level force plots
+*  Real-time risk scoring API deployed using FastAPI and models stored on AWS S3
+*  **Kafka-based streaming (in progress)** for simulating real-time transaction ingestion and scoring
 
 ---
 
-## 🏗️ Architecture Overview
+##  Architecture Overview
 
 ```
                 +-------------------------+
@@ -56,7 +56,7 @@
 
 ---
 
-## 📈 Key Results
+##  Key Results
 
 | Metric    | Value |
 | --------- | ----- |
@@ -68,7 +68,7 @@
 
 ---
 
-## 🔍 Explainability
+##  Explainability
 
 * SHAP global summary plots for top feature importances
 * SHAP dependence plots for most influential features
@@ -76,7 +76,7 @@
 
 ---
 
-## 🔄 Streaming Simulation (In Progress)
+##  Streaming Simulation (In Progress)
 
 * Kafka producer will stream 4M unlabeled transactions to simulate live ingestion
 * Kafka consumer will pull events, forward to scoring API, and log responses
@@ -84,7 +84,7 @@
 
 ---
 
-## 🛠️ Technologies Used
+##  Technologies Used
 
 * **Languages:** Python, SQL
 * **Libraries:** Pandas, NumPy, Scikit-learn, XGBoost, LightGBM, SHAP, Matplotlib, Seaborn
