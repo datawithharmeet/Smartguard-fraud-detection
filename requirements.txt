@@ -13,3 +13,7 @@ scipy
 scikit-learn
 pyarrow
 lightgbm
+mlflow
+dagshub
+xgboost
+shap
