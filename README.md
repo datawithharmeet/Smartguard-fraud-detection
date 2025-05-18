@@ -63,7 +63,7 @@
 | Precision | 3.74%  |
 | Recall    | 80%   |
 | F1 Score  | 7.4%  |
-| ROC AUC   | 97.6% |
+| ROC AUC   | 96.4% |
 | Threshold | 0.8   |
 
 ---
