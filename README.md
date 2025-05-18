@@ -10,7 +10,7 @@
 *  Exploratory Data Analysis and statistical testing to validate data assumptions and shape transformation strategy
 *  Feature engineering pipeline using YAML config, including log transforms, ratios, encodings, and business rules
 *  Trained multiple models (XGBoost, LightGBM, RandomForest) with recall-prioritized threshold tuning
-*  Final model achieved **82% recall** and **3.8% precision** at 0.8 threshold — balancing fraud catch rate with customer experience
+*  Final model achieved **80% recall** and **3.74% precision** at 0.8 threshold — balancing fraud catch rate with customer experience
 *  SHAP explainability integrated for both global summaries and local transaction-level force plots
 *  Real-time risk scoring API deployed using FastAPI and models stored on AWS S3
 *  **Kafka-based streaming (in progress)** for simulating real-time transaction ingestion and scoring
@@ -60,8 +60,8 @@
 
 | Metric    | Value |
 | --------- | ----- |
-| Precision | 3.8%  |
-| Recall    | 82%   |
+| Precision | 3.74%  |
+| Recall    | 80%   |
 | F1 Score  | 7.4%  |
 | ROC AUC   | 97.6% |
 | Threshold | 0.8   |
