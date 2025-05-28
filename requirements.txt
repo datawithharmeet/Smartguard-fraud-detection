@@ -17,3 +17,6 @@ mlflow
 dagshub
 xgboost
 shap
+confluent_kafka
+kafka-python
+streamlit

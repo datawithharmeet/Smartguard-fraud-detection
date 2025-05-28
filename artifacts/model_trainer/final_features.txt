@@ -24,7 +24,6 @@ merchant_state_Argentina
 merchant_state_Aruba
 merchant_state_Australia
 merchant_state_Austria
-merchant_state_Azerbaijan
 merchant_state_Bahrain
 merchant_state_Bangladesh
 merchant_state_Barbados

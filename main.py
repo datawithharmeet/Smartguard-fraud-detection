@@ -1,51 +1,58 @@
+import sys
 from frauddetection.entity.config_entity import (
     TrainingPipelineConfig,
     DataIngestionConfig,
     DataTransformationConfig,
-    ModelTrainerConfig,
+    ModelTrainerConfig
 )
 from frauddetection.components.data_ingestion import DataIngestion
 from frauddetection.components.data_transformation import DataTransformation
 from frauddetection.components.model_trainer import ModelTrainer
-from frauddetection.components.model_validator import ModelValidator
-from frauddetection.constants import pipeline_constants as pc
+from frauddetection.logging.logger import logger
+from frauddetection.exception.exception import SmartGuardException
 
+def start_training_pipeline():
+    try:
+        print("\n🔁 Starting SmartGuard training pipeline...\n")
 
-def run_pipeline():
-    print("Starting SmartGuard Fraud Detection Pipeline...")
+        # === 1. Training pipeline config
+        pipeline_config = TrainingPipelineConfig()
 
-    # Step 1: Set up pipeline config
-    pipeline_config = TrainingPipelineConfig()
+        # === 2. Data Ingestion
+        print("Step 1: Running Data Ingestion...")
+        ingestion_config = DataIngestionConfig(training_pipeline_config=pipeline_config)
+        ingestion = DataIngestion(config=ingestion_config)
+        ingestion_artifact = ingestion.ingest_data()
 
-    # Step 2: Data Ingestion
-    ingestion_config = DataIngestionConfig(training_pipeline_config=pipeline_config)
-    ingestion = DataIngestion(config=ingestion_config)
-    ingestion_artifact = ingestion.ingest_data()
-    print(" Data Ingestion completed.\n")
+        print(f"Data Ingestion complete.")
+    
+        # - Data Transformation
+        logger.info(" Step 2: Starting Data Transformation...")
+        transformation_config = DataTransformationConfig(training_pipeline_config=pipeline_config)
+        transformation = DataTransformation(config=transformation_config)
+        transformation_artifact = transformation.initiate_data_transformation()
 
-    # Step 3: Data Transformation
-    transformation_config = DataTransformationConfig(training_pipeline_config=pipeline_config)
-    transformation = DataTransformation(config=transformation_config)
-    transformation_artifact = transformation.initiate_data_transformation()
-    print(" Data Transformation completed.\n")
+        logger.info("Data Transformation completed successfully.")
 
-    # Step 4: Model Training
-    trainer_config = ModelTrainerConfig(training_pipeline_config=pipeline_config)
-    trainer = ModelTrainer(model_trainer_config=trainer_config, data_transformation_artifact=transformation_artifact)
-    model_artifact = trainer.initiate_model_trainer()
-    print("Model Training completed.")
-    print(f" Saved model to: {model_artifact.trained_model_path}")
-    print(f" Feature list at: {model_artifact.feature_list_path}\n")
+        # - Model Trainer
+        logger.info("Step 3: Running Model Training...")
+        trainer_config = ModelTrainerConfig(training_pipeline_config=pipeline_config)
+        trainer = ModelTrainer(model_trainer_config=trainer_config, data_transformation_artifact=transformation_artifact)
+        trainer_artifact = trainer.initiate_model_trainer()
 
-    # Step 5: Final Validation
-    validator = ModelValidator(
-        model_path=model_artifact.trained_model_path,
-        data_path=transformation_config.transformed_file_path,
-        threshold=pc.MODEL_TRAINER_THRESHOLD
-    )
-    validator.validate()
-    print("Final Model Validation completed.\n")
+        logger.info("Model Training Completed Successfully.")
+        logger.info(f"Model Path: {trainer_artifact.trained_model_path}")
+        logger.info(f"Train Metrics: {trainer_artifact.train_metric}")
+        logger.info(f"Test Metrics : {trainer_artifact.test_metric}")
+        # - Model Validator
+        # - SHAP
+        # - Deployment
+        # etc.
+
+    except Exception as e:
+        logger.error(SmartGuardException(e, sys))
+        sys.exit(1)
 
 
 if __name__ == "__main__":
-    run_pipeline()
+    start_training_pipeline()

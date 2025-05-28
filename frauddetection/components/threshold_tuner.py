@@ -1,14 +1,12 @@
 import os
 import numpy as np
-import os
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.metrics import precision_score, recall_score, f1_score
-from sklearn.model_selection import train_test_split
 
 from frauddetection.constants import pipeline_constants as pc
 from frauddetection.utils.main_utils import load_object
+
 
 class ThresholdTuner:
     def __init__(self, model_path: str, data_path: str, threshold_range=(0.5, 0.91, 0.05)):
@@ -23,21 +21,35 @@ class ThresholdTuner:
         X = df.drop(columns=["fraud_label"])
         y = df["fraud_label"]
 
-        _, X_test, _, y_test = train_test_split(X, y, test_size=0.2, stratify=y, random_state=42)
-        y_prob = model.predict_proba(X_test)[:, 1]
+        # Align features with training
+        with open("artifacts/model_trainer/final_features.txt", "r") as f:
+            required_features = [line.strip() for line in f.readlines()]
+    
+        for col in required_features:
+            if col not in X.columns:
+                X[col] = 0  # Add missing columns with default zero
+  
+        X = X[required_features]  # Ensure correct column order
+
+        y_prob = model.predict_proba(X)[:, 1]
 
         results = []
         for t in self.thresholds:
             y_pred = (y_prob >= t).astype(int)
-            precision = precision_score(y_test, y_pred, zero_division=0)
-            recall = recall_score(y_test, y_pred)
-            f1 = f1_score(y_test, y_pred)
-            results.append({"threshold": t, "precision": precision, "recall": recall, "f1": f1})
+            precision = precision_score(y, y_pred, zero_division=0)
+            recall = recall_score(y, y_pred)
+            f1 = f1_score(y, y_pred)
+            results.append({
+                "threshold": round(t, 2),
+                "precision": precision,
+                "recall": recall,
+                "f1": f1
+            })
 
         df_results = pd.DataFrame(results)
         return df_results
 
-    def find_best_threshold(self, df_results: pd.DataFrame, min_recall=0.75):
+    def find_best_threshold(self, df_results: pd.DataFrame, min_recall=0.8):
         candidates = df_results[df_results["recall"] >= min_recall]
         if not candidates.empty:
             best_row = candidates.sort_values(by="precision", ascending=False).iloc[0]
@@ -50,6 +62,7 @@ class ThresholdTuner:
         best_threshold, best_row = self.find_best_threshold(df_results)
 
         # Save plot
+        os.makedirs("artifacts/threshold_tuning", exist_ok=True)
         plt.figure(figsize=(8, 5))
         plt.plot(df_results["threshold"], df_results["precision"], label="Precision")
         plt.plot(df_results["threshold"], df_results["recall"], label="Recall")
@@ -61,11 +74,15 @@ class ThresholdTuner:
         plt.legend()
         plt.grid(True)
         plt.tight_layout()
-        os.makedirs("artifacts/threshold_tuning", exist_ok=True)
         plt.savefig("artifacts/threshold_tuning/threshold_metrics_plot.png")
+
+        # Save best threshold
+        with open("artifacts/threshold_tuning/best_threshold.txt", "w") as f:
+            f.write(f"{best_threshold:.2f}")
 
         print(" Best Threshold Found:")
         print(best_row)
 
         return best_threshold, best_row
+
 

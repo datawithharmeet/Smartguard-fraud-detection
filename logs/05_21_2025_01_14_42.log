@@ -1,0 +1,58 @@
+[ 2025-05-21 01:14:42,434 ] 396 kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=bootstrap-0 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+[ 2025-05-21 01:14:42,434 ] 618 kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=bootstrap-0 host=localhost:9092 <checking_api_versions_recv> [IPv6 ('::1', 9092, 0, 0)]>: Broker version identified as 2.6
+[ 2025-05-21 01:14:42,434 ] 457 kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+[ 2025-05-21 01:14:45,647 ] 21 root - INFO - Streaming to Kafka topic: transaction_stream
+[ 2025-05-21 01:14:45,647 ] 396 kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=1 host=localhost:9092 <connecting> [IPv6 ('::1', 9092, 0, 0)]>: connecting to localhost:9092 [('::1', 9092, 0, 0) IPv6]
+[ 2025-05-21 01:14:45,647 ] 457 kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=1 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Connection complete.
+[ 2025-05-21 01:14:45,647 ] 945 kafka.conn - INFO - <BrokerConnection client_id=kafka-python-producer-1, node_id=bootstrap-0 host=localhost:9092 <connected> [IPv6 ('::1', 9092, 0, 0)]>: Closing connection. 
+[ 2025-05-21 01:14:45,658 ] 26 root - INFO - Sent transaction 1/50 | ID=7475331
+[ 2025-05-21 01:14:45,759 ] 26 root - INFO - Sent transaction 2/50 | ID=7475334
+[ 2025-05-21 01:14:45,864 ] 26 root - INFO - Sent transaction 3/50 | ID=7475336
+[ 2025-05-21 01:14:45,976 ] 26 root - INFO - Sent transaction 4/50 | ID=7475337
+[ 2025-05-21 01:14:46,089 ] 26 root - INFO - Sent transaction 5/50 | ID=7475343
+[ 2025-05-21 01:14:46,201 ] 26 root - INFO - Sent transaction 6/50 | ID=7475351
+[ 2025-05-21 01:14:46,303 ] 26 root - INFO - Sent transaction 7/50 | ID=7475356
+[ 2025-05-21 01:14:46,413 ] 26 root - INFO - Sent transaction 8/50 | ID=7475358
+[ 2025-05-21 01:14:46,524 ] 26 root - INFO - Sent transaction 9/50 | ID=7475364
+[ 2025-05-21 01:14:46,636 ] 26 root - INFO - Sent transaction 10/50 | ID=7475370
+[ 2025-05-21 01:14:46,747 ] 26 root - INFO - Sent transaction 11/50 | ID=7475373
+[ 2025-05-21 01:14:46,849 ] 26 root - INFO - Sent transaction 12/50 | ID=7475374
+[ 2025-05-21 01:14:46,963 ] 26 root - INFO - Sent transaction 13/50 | ID=7475376
+[ 2025-05-21 01:14:47,074 ] 26 root - INFO - Sent transaction 14/50 | ID=7475381
+[ 2025-05-21 01:14:47,185 ] 26 root - INFO - Sent transaction 15/50 | ID=7475388
+[ 2025-05-21 01:14:47,296 ] 26 root - INFO - Sent transaction 16/50 | ID=7475391
+[ 2025-05-21 01:14:47,400 ] 26 root - INFO - Sent transaction 17/50 | ID=7475396
+[ 2025-05-21 01:14:47,511 ] 26 root - INFO - Sent transaction 18/50 | ID=7475397
+[ 2025-05-21 01:14:47,622 ] 26 root - INFO - Sent transaction 19/50 | ID=7475399
+[ 2025-05-21 01:14:47,734 ] 26 root - INFO - Sent transaction 20/50 | ID=7475402
+[ 2025-05-21 01:14:47,845 ] 26 root - INFO - Sent transaction 21/50 | ID=7475404
+[ 2025-05-21 01:14:47,949 ] 26 root - INFO - Sent transaction 22/50 | ID=7475407
+[ 2025-05-21 01:14:48,060 ] 26 root - INFO - Sent transaction 23/50 | ID=7475413
+[ 2025-05-21 01:14:48,171 ] 26 root - INFO - Sent transaction 24/50 | ID=7475416
+[ 2025-05-21 01:14:48,282 ] 26 root - INFO - Sent transaction 25/50 | ID=7475421
+[ 2025-05-21 01:14:48,394 ] 26 root - INFO - Sent transaction 26/50 | ID=7475422
+[ 2025-05-21 01:14:48,498 ] 26 root - INFO - Sent transaction 27/50 | ID=7475425
+[ 2025-05-21 01:14:48,608 ] 26 root - INFO - Sent transaction 28/50 | ID=7475426
+[ 2025-05-21 01:14:48,720 ] 26 root - INFO - Sent transaction 29/50 | ID=7475430
+[ 2025-05-21 01:14:48,831 ] 26 root - INFO - Sent transaction 30/50 | ID=7475435
+[ 2025-05-21 01:14:48,942 ] 26 root - INFO - Sent transaction 31/50 | ID=7475438
+[ 2025-05-21 01:14:49,048 ] 26 root - INFO - Sent transaction 32/50 | ID=7475441
+[ 2025-05-21 01:14:49,160 ] 26 root - INFO - Sent transaction 33/50 | ID=7475443
+[ 2025-05-21 01:14:49,271 ] 26 root - INFO - Sent transaction 34/50 | ID=7475447
+[ 2025-05-21 01:14:49,382 ] 26 root - INFO - Sent transaction 35/50 | ID=7475449
+[ 2025-05-21 01:14:49,493 ] 26 root - INFO - Sent transaction 36/50 | ID=7475454
+[ 2025-05-21 01:14:49,595 ] 26 root - INFO - Sent transaction 37/50 | ID=7475455
+[ 2025-05-21 01:14:49,707 ] 26 root - INFO - Sent transaction 38/50 | ID=7475463
+[ 2025-05-21 01:14:49,817 ] 26 root - INFO - Sent transaction 39/50 | ID=7475467
+[ 2025-05-21 01:14:49,929 ] 26 root - INFO - Sent transaction 40/50 | ID=7475469
+[ 2025-05-21 01:14:50,049 ] 26 root - INFO - Sent transaction 41/50 | ID=7475473
+[ 2025-05-21 01:14:50,161 ] 26 root - INFO - Sent transaction 42/50 | ID=7475475
+[ 2025-05-21 01:14:50,272 ] 26 root - INFO - Sent transaction 43/50 | ID=7475482
+[ 2025-05-21 01:14:50,382 ] 26 root - INFO - Sent transaction 44/50 | ID=7475483
+[ 2025-05-21 01:14:50,493 ] 26 root - INFO - Sent transaction 45/50 | ID=7475486
+[ 2025-05-21 01:14:50,598 ] 26 root - INFO - Sent transaction 46/50 | ID=7475487
+[ 2025-05-21 01:14:50,709 ] 26 root - INFO - Sent transaction 47/50 | ID=7475493
+[ 2025-05-21 01:14:50,821 ] 26 root - INFO - Sent transaction 48/50 | ID=7475494
+[ 2025-05-21 01:14:50,933 ] 26 root - INFO - Sent transaction 49/50 | ID=7475496
+[ 2025-05-21 01:14:51,046 ] 26 root - INFO - Sent transaction 50/50 | ID=7475500
+[ 2025-05-21 01:14:51,148 ] 29 root - INFO - Completed streaming.

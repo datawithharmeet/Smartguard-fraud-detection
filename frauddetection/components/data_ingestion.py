@@ -1,8 +1,11 @@
 import os
 import pandas as pd
+from sklearn.model_selection import train_test_split
+
 from frauddetection.entity.config_entity import DataIngestionConfig
 from frauddetection.entity.artifact_entity import DataIngestionArtifact
 from frauddetection.utils.main_utils import read_csv, read_json, save_parquet
+
 
 class DataIngestion:
     def __init__(self, config: DataIngestionConfig):
@@ -42,12 +45,26 @@ class DataIngestion:
         # MCC mapping
         transactions["mcc_desc"] = transactions["mcc"].astype(str).map(mcc_dict)
 
-        # Save the full merged dataset
-        os.makedirs(self.config.data_ingestion_dir, exist_ok=True)
-        save_parquet(transactions, self.config.processed_file_path)
+        # Save full feature store
+        os.makedirs(os.path.dirname(self.config.feature_store_file_path), exist_ok=True)
+        save_parquet(transactions, self.config.feature_store_file_path)
 
-        print("✅ Data ingestion complete.")
-        return DataIngestionArtifact(
-        processed_file_path=self.config.processed_file_path
+        # Split
+        train_df, test_df = train_test_split(
+            transactions,
+            test_size=self.config.train_test_split_ratio,
+            stratify=transactions["fraud_label"],
+            random_state=42
         )
 
+        # Save train and test sets
+        os.makedirs(os.path.dirname(self.config.training_file_path), exist_ok=True)
+        save_parquet(train_df, self.config.training_file_path)
+        save_parquet(test_df, self.config.testing_file_path)
+
+        print("✅ Data ingestion complete with train-test split.")
+        return DataIngestionArtifact(
+            feature_store_file_path=self.config.feature_store_file_path,
+            training_file_path=self.config.training_file_path,
+            testing_file_path=self.config.testing_file_path
+        )
