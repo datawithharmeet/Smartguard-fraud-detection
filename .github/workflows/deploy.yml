@@ -24,20 +24,19 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-
       - name: Build and Push Images
         run: |
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:app-latest -f Dockerfile .
-          docker push ${{ secrets.ECR_REPOSITORY_URI }}:app-latest
+          docker build -t ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:app-latest -f Dockerfile .
+          docker push ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:app-latest
 
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:producer-latest -f Dockerfile .
-          docker push ${{ secrets.ECR_REPOSITORY_URI }}:producer-latest
+          docker build -t ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:producer-latest -f Dockerfile .
+          docker push ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:producer-latest
 
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:consumer-latest -f Dockerfile .
-          docker push ${{ secrets.ECR_REPOSITORY_URI }}:consumer-latest
+          docker build -t ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:consumer-latest -f Dockerfile .
+          docker push ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:consumer-latest
 
-          docker build -t ${{ secrets.ECR_REPOSITORY_URI }}:streamlit-latest -f Dockerfile .
-          docker push ${{ secrets.ECR_REPOSITORY_URI }}:streamlit-latest
+          docker build -t ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:streamlit-latest -f Dockerfile .
+          docker push ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:streamlit-latest
 
   deploy:
     name: Deploy to EC2
