@@ -21,7 +21,7 @@ services:
     restart: unless-stopped
 
   app:
-    build: .
+    image: 017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd:app-latest
     container_name: app
     command: ["python3", "api/app.py"]
     ports:
@@ -30,14 +30,14 @@ services:
       - kafka
 
   producer:
-    build: .
+    image: 017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd:producer-latest
     container_name: producer
     command: ["python3", "streaming/kafka_producer.py"]
     depends_on:
       - kafka
 
   consumer:
-    build: .
+    image: 017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd:consumer-latest
     container_name: consumer
     command: ["python3", "streaming/kafka_consumer.py"]
     depends_on:
@@ -45,7 +45,7 @@ services:
       - app
 
   streamlit:
-    build: .
+    image: 017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd:streamlit-latest
     container_name: streamlit
     command: ["streamlit", "run", "streamlit_app.py", "--server.port=8501", "--server.address=0.0.0.0"]
     ports:
