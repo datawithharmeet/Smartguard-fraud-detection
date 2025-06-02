@@ -10,6 +10,9 @@ jobs:
     name: Build and Push Docker Images to ECR
     runs-on: ubuntu-latest
 
+    env:
+      ECR_URI: ${{ secrets.ECR_REPO_URI }}
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -22,21 +25,21 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to Amazon ECR
-        id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
-      - name: Build and Push Images
+
+      - name: Build and Push Docker Images
         run: |
-          docker build -t ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:app-latest -f Dockerfile .
-          docker push ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:app-latest
+          docker build -t $ECR_URI:app-latest -f Dockerfile .
+          docker push $ECR_URI:app-latest
 
-          docker build -t ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:producer-latest -f Dockerfile .
-          docker push ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:producer-latest
+          docker build -t $ECR_URI:producer-latest -f Dockerfile .
+          docker push $ECR_URI:producer-latest
 
-          docker build -t ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:consumer-latest -f Dockerfile .
-          docker push ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:consumer-latest
+          docker build -t $ECR_URI:consumer-latest -f Dockerfile .
+          docker push $ECR_URI:consumer-latest
 
-          docker build -t ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:streamlit-latest -f Dockerfile .
-          docker push ${{ secrets.017915196107.dkr.ecr.us-east-1.amazonaws.com/smartgaurd }}:streamlit-latest
+          docker build -t $ECR_URI:streamlit-latest -f Dockerfile .
+          docker push $ECR_URI:streamlit-latest
 
   deploy:
     name: Deploy to EC2
@@ -44,13 +47,20 @@ jobs:
     needs: build-and-push
 
     steps:
-      - name: Checkout
+      - name: Checkout Code
         uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Login to Amazon ECR
         uses: aws-actions/amazon-ecr-login@v1
 
-      - name: Pull latest images and restart
+      - name: Pull latest images and restart containers
         run: |
           docker compose pull
           docker compose up -d --remove-orphans
